@@ -1,0 +1,2 @@
+# JsLottery
+Simple JS Lottery
