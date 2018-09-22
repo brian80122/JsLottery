@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,16 +22,20 @@
 <body>
     <div id="app">
         <b-container>
-            <label>請輸入籤筒內容</label>
-            <b-form-textarea v-model="lottery" placeholder="輸入籤筒內容, 一行一組籤" :rows="10" :max-rows="100">
-            </b-form-textarea>
-            <label>抽幾組</label>
-            <b-form-input v-model="amount" type="number" max="totoalCount"></b-form-input>
-            <label> 抽中內容</label>
-            <b-form-textarea readonly v-model="pickedLottery" placeholder="中籤內容" :rows="10" :max-rows="100"></b-form-textarea>
-            <br />
-
-            <button @click="GetLottery()">抽籤</button> <button @click="Clear()">清空籤筒</button>
+            <div>
+                <label>請輸入籤筒內容</label>
+                <b-form-textarea v-model="lottery" placeholder="輸入籤筒內容, 一行一組籤" :rows="10" :max-rows="100">
+                </b-form-textarea>
+                <label>抽幾組</label>
+                <b-form-input v-model="amount" type="number" max="totoalCount"></b-form-input>
+                <br>
+                    <button @click="GetLottery()">抽籤</button> <button @click="Clear()">清空籤筒</button>
+            </div>
+            <div>
+                <br />
+                <label> 抽中內容</label>
+                <b-form-textarea readonly v-model="pickedLottery" placeholder="中籤內容" :rows="10" :max-rows="100"></b-form-textarea>
+            </div>
         </b-container>
     </div>
 
@@ -90,8 +94,7 @@
                     console.log(returnArray)
                     return returnArray;
                 },
-                Clear: function()
-                {
+                Clear: function () {
                     this.lottery = '';
                 }
             }
