@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>SimpleJsLottery</title>
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <b-container>
+            <label>請輸入籤筒內容</label>
+            <b-form-textarea v-model="lottery" placeholder="輸入籤筒內容, 一行一組籤" :rows="10" :max-rows="100">
+            </b-form-textarea>
+            <label>抽幾組</label>
+            <b-form-input v-model="amount" type="number" max="totoalCount"></b-form-input>
+            <label> 抽中內容</label>
+            <b-form-textarea readonly v-model="pickedLottery" placeholder="中籤內容" :rows="10" :max-rows="100"></b-form-textarea>
+            <br />
+
+            <button @click="GetLottery()">抽籤</button>
+        </b-container>
+    </div>
+
+    <script>
+        window.app = new Vue({
+            el: "#app",
+            data: {
+                lottery: '',
+                pickedLottery: '',
+                amount: 1
+            },
+            computed: {
+                lotteryArray: function () {
+                    if (this.lottery)
+                        return this.lottery.split('\n')
+                    else {
+                        alert("請輸入籤");
+                    }
+                }
+            },
+            methods: {
+                GetData: function () {
+                    console.log(this.lotteryArray);
+                },
+                GetLottery: function () {
+                    this.pickedLottery = '';
+                    pickedLottery = this.pickedLottery;
+                    var lotterArray = this.lotteryArray;
+                    var maxCount = lotterArray.length;
+                    if (maxCount)
+                        if (maxCount < this.amount) {
+                            alert('抽選數量不可小於總籤數');
+                            return;
+                        }
+                    var pickeds = this.GetRandoms(maxCount, this.amount);
+                    pickeds.forEach(function (item, index) {
+                        pickedLottery += `${index + 1}. ${lotterArray[item]}\n`
+                    })
+                    this.pickedLottery = pickedLottery;
+                },
+                GetRandom: function (maxCount) {
+                    var picked = Math.floor(Math.random() * maxCount);
+                    return picked;
+                },
+                GetRandoms: function (maxCount, amount) {
+                    var returnArray = [];
+                    for (let index = 0; index < amount; index++) {
+                        while (true) {
+                            var picked = this.GetRandom(maxCount);
+                            if (returnArray.indexOf(picked) == -1) {
+                                returnArray.push(picked);
+                                break;
+                            }
+                        }
+                    }
+                    console.log(returnArray)
+                    return returnArray;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
