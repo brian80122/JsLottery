@@ -31,7 +31,7 @@
             <b-form-textarea readonly v-model="pickedLottery" placeholder="中籤內容" :rows="10" :max-rows="100"></b-form-textarea>
             <br />
 
-            <button @click="GetLottery()">抽籤</button>
+            <button @click="GetLottery()">抽籤</button> <button @click="Clear()">清空籤筒</button>
         </b-container>
     </div>
 
@@ -89,6 +89,10 @@
                     }
                     console.log(returnArray)
                     return returnArray;
+                },
+                Clear: function()
+                {
+                    this.lottery = '';
                 }
             }
         })
